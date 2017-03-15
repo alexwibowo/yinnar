@@ -1,0 +1,39 @@
+buildscript {
+	repositories {
+		mavenCentral()
+	}
+
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+
+apply plugin: 'org.springframework.boot'
+
+
+jar {
+	baseName = "yinnar-engine"
+	version = "1-SNAPSHOT"
+}
+
+dependencies {
+	compile "org.springframework.boot:spring-boot:${springBootVersion}"
+	compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}") {
+		exclude group:"org.springframework.boot", module:"spring-boot-starter-logging"
+	}
+	compile("org.springframework.boot:spring-boot-starter-web-services:${springBootVersion}"){
+		exclude group:"org.springframework.boot", module:"spring-boot-starter-logging"
+	}
+	compile "io.javaslang:javaslang:${javaslangVersion}"
+	compile "wsdl4j:wsdl4j:${wsdl4jVersion}"
+
+	testCompile "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
+}
+
+/** Spring Boot configuration */
+bootRepackage {
+	mainClass = "org.isolution.yinnar.YinnarBootStrap"
+}
+
+
